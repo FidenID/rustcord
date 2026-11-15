@@ -1,0 +1,27 @@
+[package]
+name = "rustcord"
+version = "0.1.0"
+edition = "2021"
+description = "Lightweight native Discord client written in Rust (personal use)"
+
+[dependencies]
+eframe = { version = "0.33", default-features = false, features = ["default_fonts", "wgpu", "wayland", "x11"] }
+# Backend GPU eksplisit (eframe tidak mengaktifkannya otomatis di wgpu 27)
+wgpu = { version = "27", default-features = false, features = ["vulkan"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "net"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "gif", "webp"] }
+tokio-tungstenite = { version = "0.28", features = ["rustls-tls-webpki-roots"] }
+futures-util = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+chrono = "0.4"
+# Voice (dengar saja): dekode Opus, playback, dekripsi RTP
+opus = "0.3"
+rodio = "0.21"
+crypto_secretbox = { version = "0.1", features = ["alloc"] }
+
+[profile.release]
+opt-level = 2
+lto = "thin"
